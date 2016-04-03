@@ -1,0 +1,52 @@
+<h2 id="miscellaneous-analysis-tips">Miscellaneous Analysis Tips</h2>
+<h2 id="use-the-r-help">Use the R Help</h2>
+<ul>
+<li><code>help(function.name)</code> -- will bring up useful documentation about a function. e.g. <code>help(read.delim)</code></li>
+<li><code>example(function.name)</code> -- will (usually) show some example applications of a function, often demonstrating how different argument can be used. e.g. <code>example(read.delim)</code></li>
+</ul>
+<h2 id="reading-a-tab-delimited-data-file-in-r">Reading a tab-delimited data file in R</h2>
+<pre><code>&gt; chip &lt;- read.delim(&quot;ChIPchip_Bio311_2016_FINAL.txt&quot;)
+&gt; names(chip)
+ [1] &quot;Gene&quot;                   &quot;RosR_noH2O2.Gene&quot;       &quot;RosR_wH2O2_10m.Pk.pval&quot; &quot;RosR_wH2O2_20m.Pk.pval&quot;
+ [5] &quot;RosR_wH2O2_60m.Pk.pval&quot; &quot;Idr1_noFe.Pk.pval&quot;      &quot;Idr1_100uM_Fe.Pk.pval&quot;  &quot;Idr2_noFe.Pk.pval&quot;     
+ [9] &quot;Idr2_100uM_Fe.Pk.pval&quot;  &quot;TfbA.Pk.pval&quot;           &quot;TfbB.Pk.pval&quot;           &quot;TfbC.Pk.pval&quot;          
+[13] &quot;TfbD.Pk.pval&quot;           &quot;TfbE.Pk.pval&quot;           &quot;TfbF.Pk.pval&quot;           &quot;TfbG.Pk.pval&quot;          
+[17] &quot;TbpE.Pk.pval&quot;           &quot;TbpF.Pk.pval&quot;           &quot;TrmB.Pk.pval&quot; </code></pre>
+<h3 id="using-the-subset-function">Using the subset function</h3>
+<p>The R <code>subset</code> function is very powerful way to identify patterns of interest. Below is an example where I've got a Data Frame with genes in rows and conditions in columns.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># let&#39;s create an example data frame</span>
+&gt;<span class="st"> </span>genes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;geneA&quot;</span>, <span class="st">&quot;geneB&quot;</span>, <span class="st">&quot;geneC&quot;</span>, <span class="st">&quot;geneD&quot;</span>, <span class="st">&quot;geneE&quot;</span>)
+&gt;<span class="st"> </span>cond1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>)  <span class="co"># some random data</span>
+&gt;<span class="st"> </span>cond2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>)
+&gt;<span class="st"> </span>cond3 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>)
+&gt;<span class="st"> </span>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">row.names =</span> genes, <span class="dt">Cond1 =</span> cond1, <span class="dt">Cond2 =</span> cond2, <span class="dt">Cond3 =</span> cond3) 
+&gt;<span class="st"> </span>df
+           Cond1      Cond2      Cond3
+geneA  <span class="fl">0.8853070</span> -<span class="fl">1.2363205</span>  <span class="fl">0.8518042</span>
+geneB -<span class="fl">0.9164607</span>  <span class="fl">0.5998509</span> -<span class="fl">0.7327142</span>
+geneC -<span class="fl">0.4823146</span> -<span class="fl">0.7570892</span> -<span class="fl">1.2067572</span>
+geneD -<span class="fl">1.1907350</span> -<span class="fl">2.1571302</span>  <span class="fl">1.4457891</span>
+geneE -<span class="fl">0.1351917</span>  <span class="fl">2.1888398</span>  <span class="fl">0.5818090</span>
+
+<span class="co"># find all the genes that are more highly expressed in Cond2 than Cond1</span>
+&gt;<span class="st"> </span><span class="kw">subset</span>(df, Cond1 &lt;<span class="st"> </span>Cond2)
+           Cond1     Cond2      Cond3
+geneB -<span class="fl">0.9164607</span> <span class="fl">0.5998509</span> -<span class="fl">0.7327142</span>
+geneE -<span class="fl">0.1351917</span> <span class="fl">2.1888398</span>  <span class="fl">0.5818090</span>
+
+
+<span class="co"># find all the genes where the absolute value in condition one is &gt; 0.5</span>
+&gt;<span class="st"> </span><span class="kw">subset</span>(df, <span class="kw">abs</span>(Cond1) &gt;<span class="st"> </span><span class="fl">0.5</span>)
+           Cond1      Cond2      Cond3
+geneA  <span class="fl">0.8853070</span> -<span class="fl">1.2363205</span>  <span class="fl">0.8518042</span>
+geneB -<span class="fl">0.9164607</span>  <span class="fl">0.5998509</span> -<span class="fl">0.7327142</span>
+geneD -<span class="fl">1.1907350</span> -<span class="fl">2.1571302</span>  <span class="fl">1.4457891</span></code></pre></div>
+<h2 id="the-apply-function">The apply function</h2>
+<p>Apply is a very useful tool for applying a function repeatedly to each row or column of a data frame. The code below illustrates some uses of apply</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>df
+           Cond1      Cond2      Cond3
+geneA  <span class="fl">0.8853070</span> -<span class="fl">1.2363205</span>  <span class="fl">0.8518042</span>
+geneB -<span class="fl">0.9164607</span>  <span class="fl">0.5998509</span> -<span class="fl">0.7327142</span>
+geneC -<span class="fl">0.4823146</span> -<span class="fl">0.7570892</span> -<span class="fl">1.2067572</span>
+geneD -<span class="fl">1.1907350</span> -<span class="fl">2.1571302</span>  <span class="fl">1.4457891</span>
+geneE -<span class="fl">0.1351917</span>  <span class="fl">2.1888398</span>  <span class="fl">0.5818090</span></code></pre></div>
