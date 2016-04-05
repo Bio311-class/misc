@@ -1,13 +1,13 @@
 # Miscellaneous Analysis Tips
 
-## Use the R Help
+### Use the R Help
 
 -   `help(function.name)` -- will bring up useful documentation about
     a function. e.g. `help(read.delim)`
 -   `example(function.name)` -- will (usually) show some example applications of a function,
     often demonstrating how different argument can be used. e.g. `example(read.delim)`
 
-## Reading a tab-delimited data file in R
+### Reading a tab-delimited data file in R
 
 ```R
 > chip <- read.delim("ChIPchip_Bio311_2016_FINAL.txt")
@@ -54,7 +54,7 @@ geneD -1.1907350 -2.1571302  1.4457891
 ```
 
 
-## The apply function
+### The apply function
 
 Apply is a very useful tool for applying a function repeatedly to each row or column of a data frame.  The code below illustrates some uses of apply.
 
@@ -78,4 +78,33 @@ geneE  0.7138849 -1.0405729 -1.2464061
 > apply(df, 2, mean) # column means
       Cond1       Cond2       Cond3 
 -0.02281316 -0.32389794 -0.21876338 
+```
+
+### Reordering Rows or Columns of a Data Frame
+
+Sometimes it's useful to be re-order the rows or columns of a Data Frame according to some criteria.  For example, if you do a cluster analysis, there's an implied ordering of the genes given by the clustering.  If you want to create a derived Data Frame with the ordering given by the cluster analysis you could do something like the following:
+
+```R
+# calculate distance matrix, assuming genes were in rows of data frame
+> gene.dist <- as.dist(1-cor(t(df), use="pairwise.complete.obs"))
+
+# carry out average linkage clustering
+> gene.clust <- hclust(gene.dist, method="average")
+
+# the ordering of genes according the clustering
+> gene.clust$order
+[1] 1 3 4 2 5
+
+# create a new data frame with the rows ordered as given by the clustering
+# note that in the df[something, ]
+# the comma is important because it implies indexing by rows
+# if instead you did df[something] (no comma) that would be indexing by columns
+
+> df[gene.clust$order, ]
+           Cond1      Cond2      Cond3
+geneA -1.3684561  0.1611493 -0.7708281
+geneC -1.5558155  0.7844484 -2.3073629
+geneD -0.4565807 -2.0420910  2.0442841
+geneB  2.5529015  0.5175765  1.1864961
+geneE  0.7138849 -1.0405729 -1.2464061
 ```

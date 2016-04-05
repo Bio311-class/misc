@@ -45,12 +45,12 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 </head>
 <body>
 <h1 id="miscellaneous-analysis-tips">Miscellaneous Analysis Tips</h1>
-<h2 id="use-the-r-help">Use the R Help</h2>
+<h3 id="use-the-r-help">Use the R Help</h3>
 <ul>
 <li><code>help(function.name)</code> -- will bring up useful documentation about a function. e.g. <code>help(read.delim)</code></li>
 <li><code>example(function.name)</code> -- will (usually) show some example applications of a function, often demonstrating how different argument can be used. e.g. <code>example(read.delim)</code></li>
 </ul>
-<h2 id="reading-a-tab-delimited-data-file-in-r">Reading a tab-delimited data file in R</h2>
+<h3 id="reading-a-tab-delimited-data-file-in-r">Reading a tab-delimited data file in R</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chip &lt;-<span class="st"> </span><span class="kw">read.delim</span>(<span class="st">&quot;ChIPchip_Bio311_2016_FINAL.txt&quot;</span>)
 &gt;<span class="st"> </span><span class="kw">names</span>(chip)
 [<span class="dv">1</span>] <span class="st">&quot;Gene&quot;</span>                   <span class="st">&quot;RosR_noH2O2.Gene&quot;</span>       <span class="st">&quot;RosR_wH2O2_10m.Pk.pval&quot;</span> <span class="st">&quot;RosR_wH2O2_20m.Pk.pval&quot;</span>
@@ -87,7 +87,7 @@ geneE -<span class="fl">0.1351917</span> <span class="fl">2.1888398</span>  <spa
 geneA  <span class="fl">0.8853070</span> -<span class="fl">1.2363205</span>  <span class="fl">0.8518042</span>
 geneB -<span class="fl">0.9164607</span>  <span class="fl">0.5998509</span> -<span class="fl">0.7327142</span>
 geneD -<span class="fl">1.1907350</span> -<span class="fl">2.1571302</span>  <span class="fl">1.4457891</span></code></pre></div>
-<h2 id="the-apply-function">The apply function</h2>
+<h3 id="the-apply-function">The apply function</h3>
 <p>Apply is a very useful tool for applying a function repeatedly to each row or column of a data frame. The code below illustrates some uses of apply.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">help</span>(apply) <span class="co"># read the docs first</span>
 
@@ -108,5 +108,29 @@ geneE  <span class="fl">0.7138849</span> -<span class="fl">1.0405729</span> -<sp
 &gt;<span class="st"> </span><span class="kw">apply</span>(df, <span class="dv">2</span>, mean) <span class="co"># column means</span>
       Cond1       Cond2       Cond3 
 -<span class="fl">0.02281316</span> -<span class="fl">0.32389794</span> -<span class="fl">0.21876338</span> </code></pre></div>
+<h3 id="reordering-rows-or-columns-of-a-data-frame">Reordering Rows or Columns of a Data Frame</h3>
+<p>Sometimes it's useful to be re-order the rows or columns of a Data Frame according to some criteria. For example, if you do a cluster analysis, there's an implied ordering of the genes given by the clustering. If you want to create a derived Data Frame with the ordering given by the cluster analysis you could do something like the following:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate distance matrix, assuming genes were in rows of data frame</span>
+&gt;<span class="st"> </span>gene.dist &lt;-<span class="st"> </span><span class="kw">as.dist</span>(<span class="dv">1</span>-<span class="kw">cor</span>(<span class="kw">t</span>(df), <span class="dt">use=</span><span class="st">&quot;pairwise.complete.obs&quot;</span>))
+
+<span class="co"># carry out average linkage clustering</span>
+&gt;<span class="st"> </span>gene.clust &lt;-<span class="st"> </span><span class="kw">hclust</span>(gene.dist, <span class="dt">method=</span><span class="st">&quot;average&quot;</span>)
+
+<span class="co"># the ordering of genes according the clustering</span>
+&gt;<span class="st"> </span>gene.clust$order
+[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">5</span>
+
+<span class="co"># create a new data frame with the rows ordered as given by the clustering</span>
+<span class="co"># note that in the df[something, ]</span>
+<span class="co"># the comma is important because it implies indexing by rows</span>
+<span class="co"># if instead you did df[something] (no comma) that would be indexing by columns</span>
+
+&gt;<span class="st"> </span>df[gene.clust$order, ]
+           Cond1      Cond2      Cond3
+geneA -<span class="fl">1.3684561</span>  <span class="fl">0.1611493</span> -<span class="fl">0.7708281</span>
+geneC -<span class="fl">1.5558155</span>  <span class="fl">0.7844484</span> -<span class="fl">2.3073629</span>
+geneD -<span class="fl">0.4565807</span> -<span class="fl">2.0420910</span>  <span class="fl">2.0442841</span>
+geneB  <span class="fl">2.5529015</span>  <span class="fl">0.5175765</span>  <span class="fl">1.1864961</span>
+geneE  <span class="fl">0.7138849</span> -<span class="fl">1.0405729</span> -<span class="fl">1.2464061</span></code></pre></div>
 </body>
 </html>
