@@ -1,17 +1,63 @@
-<h2 id="miscellaneous-analysis-tips">Miscellaneous Analysis Tips</h2>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; background-color: #dddddd; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { font-weight: bold; } /* Keyword */
+code > span.dt { color: #800000; } /* DataType */
+code > span.dv { color: #0000ff; } /* DecVal */
+code > span.bn { color: #0000ff; } /* BaseN */
+code > span.fl { color: #800080; } /* Float */
+code > span.ch { color: #ff00ff; } /* Char */
+code > span.st { color: #dd0000; } /* String */
+code > span.co { color: #808080; font-style: italic; } /* Comment */
+code > span.al { color: #00ff00; font-weight: bold; } /* Alert */
+code > span.fu { color: #000080; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #ff0000; font-weight: bold; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #ff00ff; } /* SpecialChar */
+code > span.vs { color: #dd0000; } /* VerbatimString */
+code > span.ss { color: #dd0000; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { } /* ControlFlow */
+code > span.op { } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #808080; font-style: italic; } /* Documentation */
+code > span.an { color: #808080; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #808080; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="miscellaneous-analysis-tips">Miscellaneous Analysis Tips</h1>
 <h2 id="use-the-r-help">Use the R Help</h2>
 <ul>
 <li><code>help(function.name)</code> -- will bring up useful documentation about a function. e.g. <code>help(read.delim)</code></li>
 <li><code>example(function.name)</code> -- will (usually) show some example applications of a function, often demonstrating how different argument can be used. e.g. <code>example(read.delim)</code></li>
 </ul>
 <h2 id="reading-a-tab-delimited-data-file-in-r">Reading a tab-delimited data file in R</h2>
-<pre><code>&gt; chip &lt;- read.delim(&quot;ChIPchip_Bio311_2016_FINAL.txt&quot;)
-&gt; names(chip)
- [1] &quot;Gene&quot;                   &quot;RosR_noH2O2.Gene&quot;       &quot;RosR_wH2O2_10m.Pk.pval&quot; &quot;RosR_wH2O2_20m.Pk.pval&quot;
- [5] &quot;RosR_wH2O2_60m.Pk.pval&quot; &quot;Idr1_noFe.Pk.pval&quot;      &quot;Idr1_100uM_Fe.Pk.pval&quot;  &quot;Idr2_noFe.Pk.pval&quot;     
- [9] &quot;Idr2_100uM_Fe.Pk.pval&quot;  &quot;TfbA.Pk.pval&quot;           &quot;TfbB.Pk.pval&quot;           &quot;TfbC.Pk.pval&quot;          
-[13] &quot;TfbD.Pk.pval&quot;           &quot;TfbE.Pk.pval&quot;           &quot;TfbF.Pk.pval&quot;           &quot;TfbG.Pk.pval&quot;          
-[17] &quot;TbpE.Pk.pval&quot;           &quot;TbpF.Pk.pval&quot;           &quot;TrmB.Pk.pval&quot; </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chip &lt;-<span class="st"> </span><span class="kw">read.delim</span>(<span class="st">&quot;ChIPchip_Bio311_2016_FINAL.txt&quot;</span>)
+&gt;<span class="st"> </span><span class="kw">names</span>(chip)
+[<span class="dv">1</span>] <span class="st">&quot;Gene&quot;</span>                   <span class="st">&quot;RosR_noH2O2.Gene&quot;</span>       <span class="st">&quot;RosR_wH2O2_10m.Pk.pval&quot;</span> <span class="st">&quot;RosR_wH2O2_20m.Pk.pval&quot;</span>
+[<span class="dv">5</span>] <span class="st">&quot;RosR_wH2O2_60m.Pk.pval&quot;</span> <span class="st">&quot;Idr1_noFe.Pk.pval&quot;</span>      <span class="st">&quot;Idr1_100uM_Fe.Pk.pval&quot;</span>  <span class="st">&quot;Idr2_noFe.Pk.pval&quot;</span>     
+[<span class="dv">9</span>] <span class="st">&quot;Idr2_100uM_Fe.Pk.pval&quot;</span>  <span class="st">&quot;TfbA.Pk.pval&quot;</span>           <span class="st">&quot;TfbB.Pk.pval&quot;</span>           <span class="st">&quot;TfbC.Pk.pval&quot;</span>          
+[<span class="dv">13</span>] <span class="st">&quot;TfbD.Pk.pval&quot;</span>           <span class="st">&quot;TfbE.Pk.pval&quot;</span>           <span class="st">&quot;TfbF.Pk.pval&quot;</span>           <span class="st">&quot;TfbG.Pk.pval&quot;</span>          
+[<span class="dv">17</span>] <span class="st">&quot;TbpE.Pk.pval&quot;</span>           <span class="st">&quot;TbpF.Pk.pval&quot;</span>           <span class="st">&quot;TrmB.Pk.pval&quot;</span> </code></pre></div>
 <h3 id="using-the-subset-function">Using the subset function</h3>
 <p>The R <code>subset</code> function is very powerful way to identify patterns of interest. Below is an example where I've got a Data Frame with genes in rows and conditions in columns.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># let&#39;s create an example data frame</span>
@@ -42,11 +88,25 @@ geneA  <span class="fl">0.8853070</span> -<span class="fl">1.2363205</span>  <sp
 geneB -<span class="fl">0.9164607</span>  <span class="fl">0.5998509</span> -<span class="fl">0.7327142</span>
 geneD -<span class="fl">1.1907350</span> -<span class="fl">2.1571302</span>  <span class="fl">1.4457891</span></code></pre></div>
 <h2 id="the-apply-function">The apply function</h2>
-<p>Apply is a very useful tool for applying a function repeatedly to each row or column of a data frame. The code below illustrates some uses of apply</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>df
+<p>Apply is a very useful tool for applying a function repeatedly to each row or column of a data frame. The code below illustrates some uses of apply.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">help</span>(apply) <span class="co"># read the docs first</span>
+
+&gt;<span class="st"> </span>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">row.names=</span><span class="kw">c</span>(<span class="st">&quot;geneA&quot;</span>,<span class="st">&quot;geneB&quot;</span>,<span class="st">&quot;geneC&quot;</span>,<span class="st">&quot;geneD&quot;</span>,<span class="st">&quot;geneE&quot;</span>),
++<span class="st"> </span><span class="dt">Cond1 =</span> <span class="kw">rnorm</span>(<span class="dv">5</span>), <span class="dt">Cond2 =</span> <span class="kw">rnorm</span>(<span class="dv">5</span>), <span class="dt">Cond3=</span><span class="kw">rnorm</span>(<span class="dv">5</span>))
+&gt;<span class="st"> </span>df
            Cond1      Cond2      Cond3
-geneA  <span class="fl">0.8853070</span> -<span class="fl">1.2363205</span>  <span class="fl">0.8518042</span>
-geneB -<span class="fl">0.9164607</span>  <span class="fl">0.5998509</span> -<span class="fl">0.7327142</span>
-geneC -<span class="fl">0.4823146</span> -<span class="fl">0.7570892</span> -<span class="fl">1.2067572</span>
-geneD -<span class="fl">1.1907350</span> -<span class="fl">2.1571302</span>  <span class="fl">1.4457891</span>
-geneE -<span class="fl">0.1351917</span>  <span class="fl">2.1888398</span>  <span class="fl">0.5818090</span></code></pre></div>
+geneA -<span class="fl">1.3684561</span>  <span class="fl">0.1611493</span> -<span class="fl">0.7708281</span>
+geneB  <span class="fl">2.5529015</span>  <span class="fl">0.5175765</span>  <span class="fl">1.1864961</span>
+geneC -<span class="fl">1.5558155</span>  <span class="fl">0.7844484</span> -<span class="fl">2.3073629</span>
+geneD -<span class="fl">0.4565807</span> -<span class="fl">2.0420910</span>  <span class="fl">2.0442841</span>
+geneE  <span class="fl">0.7138849</span> -<span class="fl">1.0405729</span> -<span class="fl">1.2464061</span>
+
+&gt;<span class="st"> </span><span class="kw">apply</span>(df, <span class="dv">1</span>, mean)  <span class="co"># row means</span>
+     geneA      geneB      geneC      geneD      geneE 
+-<span class="fl">0.6593783</span>  <span class="fl">1.4189914</span> -<span class="fl">1.0262433</span> -<span class="fl">0.1514625</span> -<span class="fl">0.5243647</span> 
+
+&gt;<span class="st"> </span><span class="kw">apply</span>(df, <span class="dv">2</span>, mean) <span class="co"># column means</span>
+      Cond1       Cond2       Cond3 
+-<span class="fl">0.02281316</span> -<span class="fl">0.32389794</span> -<span class="fl">0.21876338</span> </code></pre></div>
+</body>
+</html>

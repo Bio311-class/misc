@@ -1,5 +1,4 @@
-Miscellaneous Analysis Tips
----------------------------
+# Miscellaneous Analysis Tips
 
 ## Use the R Help
 
@@ -10,13 +9,15 @@ Miscellaneous Analysis Tips
 
 ## Reading a tab-delimited data file in R
 
-    > chip <- read.delim("ChIPchip_Bio311_2016_FINAL.txt")
-    > names(chip)
-     [1] "Gene"                   "RosR_noH2O2.Gene"       "RosR_wH2O2_10m.Pk.pval" "RosR_wH2O2_20m.Pk.pval"
-     [5] "RosR_wH2O2_60m.Pk.pval" "Idr1_noFe.Pk.pval"      "Idr1_100uM_Fe.Pk.pval"  "Idr2_noFe.Pk.pval"     
-     [9] "Idr2_100uM_Fe.Pk.pval"  "TfbA.Pk.pval"           "TfbB.Pk.pval"           "TfbC.Pk.pval"          
-    [13] "TfbD.Pk.pval"           "TfbE.Pk.pval"           "TfbF.Pk.pval"           "TfbG.Pk.pval"          
-    [17] "TbpE.Pk.pval"           "TbpF.Pk.pval"           "TrmB.Pk.pval" 
+```R
+> chip <- read.delim("ChIPchip_Bio311_2016_FINAL.txt")
+> names(chip)
+[1] "Gene"                   "RosR_noH2O2.Gene"       "RosR_wH2O2_10m.Pk.pval" "RosR_wH2O2_20m.Pk.pval"
+[5] "RosR_wH2O2_60m.Pk.pval" "Idr1_noFe.Pk.pval"      "Idr1_100uM_Fe.Pk.pval"  "Idr2_noFe.Pk.pval"     
+[9] "Idr2_100uM_Fe.Pk.pval"  "TfbA.Pk.pval"           "TfbB.Pk.pval"           "TfbC.Pk.pval"          
+[13] "TfbD.Pk.pval"           "TfbE.Pk.pval"           "TfbF.Pk.pval"           "TfbG.Pk.pval"          
+[17] "TbpE.Pk.pval"           "TbpF.Pk.pval"           "TrmB.Pk.pval" 
+```
 
 ### Using the subset function
 
@@ -55,15 +56,26 @@ geneD -1.1907350 -2.1571302  1.4457891
 
 ## The apply function
 
-Apply is a very useful tool for applying a function repeatedly to each row or column of a data frame.  The code below illustrates some uses of apply
+Apply is a very useful tool for applying a function repeatedly to each row or column of a data frame.  The code below illustrates some uses of apply.
 
 ```R
+> help(apply) # read the docs first
+
+> df <- data.frame(row.names=c("geneA","geneB","geneC","geneD","geneE"),
++ Cond1 = rnorm(5), Cond2 = rnorm(5), Cond3=rnorm(5))
 > df
            Cond1      Cond2      Cond3
-geneA  0.8853070 -1.2363205  0.8518042
-geneB -0.9164607  0.5998509 -0.7327142
-geneC -0.4823146 -0.7570892 -1.2067572
-geneD -1.1907350 -2.1571302  1.4457891
-geneE -0.1351917  2.1888398  0.5818090
+geneA -1.3684561  0.1611493 -0.7708281
+geneB  2.5529015  0.5175765  1.1864961
+geneC -1.5558155  0.7844484 -2.3073629
+geneD -0.4565807 -2.0420910  2.0442841
+geneE  0.7138849 -1.0405729 -1.2464061
 
+> apply(df, 1, mean)  # row means
+     geneA      geneB      geneC      geneD      geneE 
+-0.6593783  1.4189914 -1.0262433 -0.1514625 -0.5243647 
+
+> apply(df, 2, mean) # column means
+      Cond1       Cond2       Cond3 
+-0.02281316 -0.32389794 -0.21876338 
 ```
