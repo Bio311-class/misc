@@ -1,4 +1,6 @@
-# Miscellaneous Analysis Tips
+---
+title: Miscellaneous R Tips
+...
 
 ### Use the R Help
 
@@ -80,7 +82,7 @@ geneE  0.7138849 -1.0405729 -1.2464061
 -0.02281316 -0.32389794 -0.21876338 
 ```
 
-### Reordering Rows or Columns of a Data Frame
+### Reordering rows or columns of a Data Frame
 
 Sometimes it's useful to be re-order the rows or columns of a Data Frame according to some criteria.  For example, if you do a cluster analysis, there's an implied ordering of the genes given by the clustering.  If you want to create a derived Data Frame with the ordering given by the cluster analysis you could do something like the following:
 
@@ -108,3 +110,20 @@ geneD -0.4565807 -2.0420910  2.0442841
 geneB  2.5529015  0.5175765  1.1864961
 geneE  0.7138849 -1.0405729 -1.2464061
 ```
+
+### Determining genes that are differentially expressed from WT, unstressed in Halo data
+
+In the Halobacterium salinarum gene expression data set you're working with, you've only been given a single replicate of each experimental condition.  However, there are multiple experiments that correspond to "unstressed, wildtype" conditions. For the purposes of the epxression analyses, you can consider the following experiments as
+"unstressed wildtype" conditions.
+
+* -40min_H2O2_ura3
+* -20min_H2O2_ura3
+* ura3_0.448
+* ura3_0uM_Fe_20min	
+* ura3_0uM_Fe_40min	
+* ura3_0uM_Fe_60min
+    
+We can use these data to estimate the distribution 
+
+
+

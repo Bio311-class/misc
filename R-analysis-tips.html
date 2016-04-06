@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <title></title>
+  <title>Miscellaneous R Tips</title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
@@ -44,7 +44,18 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
   </style>
 </head>
 <body>
-<h1 id="miscellaneous-analysis-tips">Miscellaneous Analysis Tips</h1>
+<div id="header">
+<h1 class="title">Miscellaneous R Tips</h1>
+</div>
+<div id="TOC">
+<ul>
+<li><a href="#use-the-r-help">Use the R Help</a></li>
+<li><a href="#reading-a-tab-delimited-data-file-in-r">Reading a tab-delimited data file in R</a></li>
+<li><a href="#using-the-subset-function">Using the subset function</a></li>
+<li><a href="#the-apply-function">The apply function</a></li>
+<li><a href="#reordering-rows-or-columns-of-a-data-frame">Reordering rows or columns of a Data Frame</a></li>
+</ul>
+</div>
 <h3 id="use-the-r-help">Use the R Help</h3>
 <ul>
 <li><code>help(function.name)</code> -- will bring up useful documentation about a function. e.g. <code>help(read.delim)</code></li>
@@ -108,7 +119,7 @@ geneE  <span class="fl">0.7138849</span> -<span class="fl">1.0405729</span> -<sp
 &gt;<span class="st"> </span><span class="kw">apply</span>(df, <span class="dv">2</span>, mean) <span class="co"># column means</span>
       Cond1       Cond2       Cond3 
 -<span class="fl">0.02281316</span> -<span class="fl">0.32389794</span> -<span class="fl">0.21876338</span> </code></pre></div>
-<h3 id="reordering-rows-or-columns-of-a-data-frame">Reordering Rows or Columns of a Data Frame</h3>
+<h3 id="reordering-rows-or-columns-of-a-data-frame">Reordering rows or columns of a Data Frame</h3>
 <p>Sometimes it's useful to be re-order the rows or columns of a Data Frame according to some criteria. For example, if you do a cluster analysis, there's an implied ordering of the genes given by the clustering. If you want to create a derived Data Frame with the ordering given by the cluster analysis you could do something like the following:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate distance matrix, assuming genes were in rows of data frame</span>
 &gt;<span class="st"> </span>gene.dist &lt;-<span class="st"> </span><span class="kw">as.dist</span>(<span class="dv">1</span>-<span class="kw">cor</span>(<span class="kw">t</span>(df), <span class="dt">use=</span><span class="st">&quot;pairwise.complete.obs&quot;</span>))
